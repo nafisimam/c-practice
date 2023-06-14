@@ -1,2 +1,4 @@
 # c-practice
-my c program practice
+
+- in celcius farenheit program, there was some issue related with brackets
+- 
