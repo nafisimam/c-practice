@@ -88,16 +88,50 @@ int Delete(struct Array *arr,int index)
     
     return 0;
 }
+
+
+int BinarySearch(struct Array arr,int key)
+{
+    int l,mid,h;
+    l=0;
+    h=arr.length-1;
+    
+    while(l <= h)
+    {
+    
+        mid=(l+h)/2;
+        
+        if(arr.A[mid] == key)
+        {
+            return mid;
+        }
+        else if(arr.A[mid] > key)
+        {
+            h = mid - 1;
+        }
+        else
+        {
+            l = mid + 1;
+        }
+    }    
+    return -1;
+    
+    
+    
+}
+
 int main()
 {
-    struct Array arr={{1,2,3,4,5},20,5};
+    struct Array arr={{1,2,4,5,6,7,8,9},20,5};
     
     //Append(&arr,10);
     //Insert(&arr, 100, 100);
     //Delete(&arr, 3);
     //Display(arr);
     
-    printf("%d\n", LinearSearch(&arr, 4));
-    printf("%d\n", LinearSearch(&arr, 4));
+    //printf("%d\n", LinearSearch(&arr, 4));
+    //printf("%d\n", LinearSearch(&arr, 4));
+    
+    printf("%d\n", BinarySearch(arr, 3));
     return 0;
 }
