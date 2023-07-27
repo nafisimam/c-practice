@@ -5,7 +5,32 @@ struct Array
     int A[10];
     int size;
     int length;
-}; 
+};
+
+void swap(int *x, int *y)
+{
+    int temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int LinearSearch(struct Array *arr, int key)
+{
+    int i;
+    for(i = 0; i < arr->length; i++)
+    {
+        if(key == arr->A[i])
+        {
+            //making search faster by moving the search key one position ahead
+            //swap(&arr->A[i], &arr->A[i - 1]); // for transposition method
+            swap(&arr->A[i], &arr->A[0]); // making the position of key to the first/head 
+            
+            return i;
+        }
+    }
+    return -1;
+}
 
 void Display(struct Array arr)
 {
@@ -26,7 +51,7 @@ void Append(struct Array *arr,int x) // structure pass by address is needed here
 }
 
 void Insert(struct Array *arr, int index, int x)
-{
+{ 
     int i;
     if (index >= 0 && index <= arr->length)
     {
@@ -34,16 +59,45 @@ void Insert(struct Array *arr, int index, int x)
         {
             arr->A[i]=arr->A[i-1];
         }
-        arr->A[index] = x;
+        arr->A[index] = x; 
         arr->length++;
     }
 }
 
+int Delete(struct Array *arr,int index)
+{
+    int x = 0;
+    int i;
+    if(index >= 0 && index <= arr->length)
+    {
+        x = arr->A[index]; // which value we are going to delete/remove
+        for(i = index; i < arr->length - 1;i++) // length - 1 means till the end of array
+        {
+            arr->A[i] = arr->A[i+1];
+        }
+        
+        // below print shows that the last element still exists but only the length is reduced by length--
+        
+        printf("%d", arr->A[arr->length - 3]);
+        printf("%d", arr->A[arr->length - 2]);
+        printf("%d", arr->A[arr->length - 1]);
+        arr->length--;
+        printf("%d", arr->A[arr->length - 1]);
+        return x;
+    }
+    
+    return 0;
+}
 int main()
 {
     struct Array arr={{1,2,3,4,5},20,5};
-    Append(&arr,10);
-    Insert(&arr, 100, 100);
-    Display(arr);
+    
+    //Append(&arr,10);
+    //Insert(&arr, 100, 100);
+    //Delete(&arr, 3);
+    //Display(arr);
+    
+    printf("%d\n", LinearSearch(&arr, 4));
+    printf("%d\n", LinearSearch(&arr, 4));
     return 0;
 }
